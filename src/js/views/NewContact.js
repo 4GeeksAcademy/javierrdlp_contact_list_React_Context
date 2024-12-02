@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+
 
 const NewContact = () => {
 
@@ -53,6 +54,17 @@ const NewContact = () => {
                     } />
                 </div>
                 <div className="mb-3">
+                    <label for="exampleInputPassword1" className="form-label fw-bold">Address</label>
+                    <input type="text" className="form-control" id="inputAddress" placeholder="Enter address" onChange={
+                        (e) => {
+                            setNewContact((contact) =>({
+                                ...contact,
+                                address: e.target.value
+                            }))
+                        }
+                    }/>
+                </div>
+                <div className="mb-3">
                     <label for="exampleInputEmail1" className="form-label fw-bold">Email</label>
                     <input type="email" className="form-control" id="inputEmail" aria-describedby="emailHelp" placeholder="Enter Email" onChange={
                         (e) => {
@@ -74,23 +86,14 @@ const NewContact = () => {
                             }))
                         }
                     } />
-                </div>
-                <div className="mb-3">
-                    <label for="exampleInputPassword1" className="form-label fw-bold">Address</label>
-                    <input type="text" className="form-control" id="inputAddress" placeholder="Enter address" onChange={
-                        (e) => {
-                            setNewContact((contact) =>({
-                                ...contact,
-                                address: e.target.value
-                            }))
-                        }
-                    }/>
-                </div>
+                </div>   
+                         
                 <button type="submit" className="btn btn-primary mb-1 col-12" onClick={
                     ()=>{
                         postContact(newContact)
                     }
                 }>Save</button>
+                
                 <Link to="/">
                     <p id="emailHelp" className="text">or get back to contacts</p>
                 </Link>

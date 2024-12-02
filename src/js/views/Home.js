@@ -55,13 +55,7 @@ export const Home = () => {
 						<LiContactCard key={value.id} name={value.name} phone={value.phone} email={value.email} address={value.address} id={value.id} getContacts= {getContacts}/>
 					))
 				}
-			</ul>
-			<p>
-				<img src={rigoImage} />
-			</p>
-			<a href="#" className="btn btn-success">
-				If you see this green button, bootstrap is working
-			</a>
+			</ul>			
 		</div>
 	)
 };
