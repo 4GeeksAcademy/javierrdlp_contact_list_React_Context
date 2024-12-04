@@ -1,32 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import contact from "../../img/contact.png"
 import { Link } from "react-router-dom";
+import {Context} from "../store/appContext"
 
-const LiContactCard = ({ name, phone, email, address, id, getContacts }) => {
+const LiContactCard = ({ name, phone, email, address, id }) => {
 
-    async function deleteContact(contactId) {
-        console.log("line 8 " + contactId);
-        
-        await fetch(`https://playground.4geeks.com/contact/agendas/javierR/contacts/${contactId}`, {
-            method: "DELETE",
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-            .then((response) => {
-                return response.json()
-            })
-            .then((data) => {
-                console.log(data)
-                
-            })
-            .catch((err) => { err })        
-            getContacts()
-    }
-
-    useEffect(() =>{
-        
-    }, [])
+    const {store, actions} = useContext(Context)   
 
     return (
         <li>
@@ -45,7 +24,7 @@ const LiContactCard = ({ name, phone, email, address, id, getContacts }) => {
                             </div>
                             <div className="col-md-6">
                                 <div className="card-body text-start">
-                                    <h5 className="card-title">{name} {id}</h5>
+                                    <h5 className="card-title">{name}</h5>
                                     <p className="card-text mb-0 text-secondary">
                                         <i className="bi bi-geo-alt-fill me-1"></i>
                                         {address}
@@ -82,9 +61,9 @@ const LiContactCard = ({ name, phone, email, address, id, getContacts }) => {
                                             <div className="modal-footer">
                                                 <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Back</button>
                                                 <button type="button" className="btn btn-primary" onClick={
-                                                    () => {
-                                                        console.log(id);                                                        
-                                                        deleteContact(id)}
+                                                    () => {                                                                                                                
+                                                        actions.deleteContact(id)
+                                                    }
                                                 } data-bs-dismiss="modal">Yes</button>
                                             </div>
                                         </div>

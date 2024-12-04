@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import rigoImage from "../../img/rigo-baby.jpg";
+import {Context} from "../store/appContext"
 
 import "../../styles/home.css";
 
@@ -9,7 +10,8 @@ import LiContactCard from "../component/LiContactCard"
 export const Home = () => {
 
 	const [contactList, setContactList] = useState([])
-
+	const {store, actions} = useContext(Context)
+	/*
 	const getContacts = () => {
 		fetch("https://playground.4geeks.com/contact/agendas/javierR/contacts")
 		.then((response) => {
@@ -17,24 +19,14 @@ export const Home = () => {
 				return response.json()
 		})
 		.then((data) => {
-			console.log(data)
-			const contactsArray = [];
-			data.contacts.forEach(element => {
-				console.log(element)
-				contactsArray.push({
-					name: element.name,
-					phone: element.phone,
-					email: element.email,
-					address: element.address,
-					id: element.id
-				})				
-			});
-			setContactList(contactsArray)
+			console.log(data)			
+			setContactList(data.contacts)
 		})
 		.catch((err) => console.error("Error fetching contacts:", err))
 	}
 
 	useEffect(() => {getContacts()},[]);
+*/
 
 	return (
 		<div className="text-center mt-5">
@@ -50,9 +42,9 @@ export const Home = () => {
 			</Link>
 
 			<ul class="list-group">
-				{
-					contactList.map((value) =>(
-						<LiContactCard key={value.id} name={value.name} phone={value.phone} email={value.email} address={value.address} id={value.id} getContacts= {getContacts}/>
+				{					
+					store.contacts.map((value) =>(
+						<LiContactCard key={value.id} name={value.name} phone={value.phone} email={value.email} address={value.address} id={value.id}/>
 					))
 				}
 			</ul>			
