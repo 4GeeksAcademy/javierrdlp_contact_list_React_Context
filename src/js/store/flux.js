@@ -13,8 +13,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 					initial: "white"
 				}
 			],
-			contacts:[],
-			contact:[]
+			contacts: [],
+			contact: []
 
 		},
 		actions: {
@@ -44,21 +44,37 @@ const getState = ({ getStore, getActions, setStore }) => {
 				setStore({ demo: demo });
 			},
 
-			getContacts: () =>{
-				fetch("https://playground.4geeks.com/contact/agendas/javierR/contacts")
+			createUser: () => {
+				fetch("https://playground.4geeks.com/contact/agendas/javierR", {
+					method: "POST",
+					headers: {
+						'Content-Type': 'application/json'
+					}
+				})
 				.then((response) => {
 					return response.json()
 				})
 				.then((data) => {
-					console.log(data);
-					
-					setStore({contacts: data.contacts})
+					console.log(data)
 				})
-				.catch((err) => {err})
+				.catch((err) => { err})
 			},
-			
-			deleteContact: (id) => {  
-        		fetch(`https://playground.4geeks.com/contact/agendas/javierR/contacts/${id}`, {
+
+			getContacts: () => {
+				fetch("https://playground.4geeks.com/contact/agendas/javierR/contacts")
+					.then((response) => {
+						return response.json()
+					})
+					.then((data) => {
+						console.log(data);
+
+						setStore({ contacts: data.contacts })
+					})
+					.catch((err) => { err })
+			},
+
+			deleteContact: (id) => {
+				fetch(`https://playground.4geeks.com/contact/agendas/javierR/contacts/${id}`, {
 					method: "DELETE",
 					headers: {
 						'Content-Type': 'application/json'
@@ -67,18 +83,18 @@ const getState = ({ getStore, getActions, setStore }) => {
 					.then(response => {
 						getActions().getContacts()
 					})
-					.catch((err) => { err }) 					       
-						
+					.catch((err) => { err })
+
 			},
-		
-			editContact:(id, contact, navigate) =>{
+
+			editContact: (id, contact, navigate) => {
 				let data = {
 					"name": contact.name,
 					"phone": contact.phone,
 					"email": contact.email,
 					"address": contact.address
 				}
-		
+
 				fetch(`https://playground.4geeks.com/contact/agendas/javierR/contacts/${id}`, {
 					method: "PUT",
 					body: JSON.stringify(data),
@@ -87,16 +103,16 @@ const getState = ({ getStore, getActions, setStore }) => {
 					}
 				})
 					.then((response) => {
-						
+
 						return response.json()
 					})
-					.then(async(data) => {
+					.then(async (data) => {
 						console.log(data)
-						await getActions().getContacts()						
-					    		
+						await getActions().getContacts()
+
 					})
 					.catch((err) => { err })
-					navigate("/")
+				navigate("/")
 
 			}
 		}

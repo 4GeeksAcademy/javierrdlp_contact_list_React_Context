@@ -99,7 +99,11 @@ const NewContact = () => {
                 </div>
 
                 <button type="submit" className="btn btn-primary mb-1 col-12" onClick={() =>{
+                    if(newContact.name == ""){
+                    }
+                    else{
                      postContact(newContact, navigate)
+                    }
                 }}>Save</button>
                 <Link to="/">
                     <p id="emailHelp" className="text">or get back to contacts</p>
