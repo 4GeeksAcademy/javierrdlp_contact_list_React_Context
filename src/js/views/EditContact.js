@@ -10,8 +10,8 @@ const EditContact = () => {
     const [editedContact, setEditedContact] = useState({})
 
     useEffect(() => {
-        const contact = store.contacts.filter((e) => String(e.id) === params.idContact)[0];        
-        setEditedContact(contact);         
+        const contact = store.contacts.filter((e) => String(e.id) === params.idContact)[0];
+        setEditedContact(contact);
     }, []);
 
     return (
@@ -23,7 +23,7 @@ const EditContact = () => {
                     <input type="text" className="form-control" id="inputName" placeholder="Full Name" value={editedContact.name} onChange={(e) => {
                         setEditedContact((prevContact) => ({
                             ...prevContact,
-                            name: e.target.value 
+                            name: e.target.value
                         }));
                     }} />
                 </div>
@@ -51,17 +51,16 @@ const EditContact = () => {
                     <input type="text" className="form-control" id="inputPhone" placeholder="Enter phone" value={editedContact.phone} onChange={(e) => {
                         setEditedContact((prevContact) => ({
                             ...prevContact,
-                            phone: e.target.value 
+                            phone: e.target.value
                         }));
-                    }}/>
+                    }} />
                 </div>
-                <button type="submit" className="btn btn-primary mb-1 col-12" onClick={
-                    () =>{
-                    actions.editContact(params.idContact, editedContact, navigate)
-                    }
-                }>Edit</button>
+                <button type="submit" className="btn btn-primary mb-1 col-12" onClick={async () => {                      
+                        await actions.editContact(params.idContact, editedContact);
+                        navigate("/");                  
+                }}>Edit</button>
                 <Link to="/">
-                    <p id="emailHelp" className="text">or get back to contacts</p>                    
+                    <p id="emailHelp" className="text">or get back to contacts</p>
                 </Link>
             </form>
         </div>

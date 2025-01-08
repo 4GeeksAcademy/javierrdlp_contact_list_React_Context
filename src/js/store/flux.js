@@ -25,6 +25,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 			loadSomeData: () => {
 				/**
 					fetch().then().then(data => setStore({ "foo": data.bar }))
+
+					
 				*/
 			},
 			changeColor: (index, color) => {
@@ -69,7 +71,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						
 			},
 		
-			editContact:(id, contact, navigate) =>{
+			editContact:(id, contact) =>{
 				let data = {
 					"name": contact.name,
 					"phone": contact.phone,
@@ -91,7 +93,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					.then((data) => {
 						console.log(data)
 						getActions().getContacts()
-					    navigate("/")		
+										    	
 					})
 					.catch((err) => { err })
 
