@@ -71,7 +71,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						
 			},
 		
-			editContact:(id, contact) =>{
+			editContact:(id, contact, navigate) =>{
 				let data = {
 					"name": contact.name,
 					"phone": contact.phone,
@@ -90,12 +90,13 @@ const getState = ({ getStore, getActions, setStore }) => {
 						
 						return response.json()
 					})
-					.then((data) => {
+					.then(async(data) => {
 						console.log(data)
-						getActions().getContacts()
-										    	
+						await getActions().getContacts()						
+					    		
 					})
 					.catch((err) => { err })
+					navigate("/")
 
 			}
 		}
